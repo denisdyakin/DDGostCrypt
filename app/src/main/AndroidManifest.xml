@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ru.denisdyakin.ddgostcrypt" >
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.MainTabActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.activities.MAINTABACTIVITY" />
+
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.FilesActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.activities.FILES" />
+
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.PasswordsActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.activities.PASSWORDS" />
+
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.NotesActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.activities.NOTES" />
+
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.activities.SETTINGSACTIVITY" />
+
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.AddFile"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.activities.FILES" />
+
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">DDGostCrypt</string>
+    <string name="action_settings">Настройки</string>
+
+    <string name="main_tab">ГОСТ</string>
+    <string name="files_tab">Файлы</string>
+    <string name="passwords_tab">Пароли</string>
+    <string name="notes_tab">Заметки</string>
+    <string name="settings_tab">Настройки</string>
+
+    <string name="back">Назад</string>
+    <string name="no_data">Сейф пуст</string>
+    <string name="location">Вы находитесь: </string>
+    <string name="your_password">Придумайте пароль</string>
+    <string name="input_password">Введите пароль</string>
+    <string name="pass_is_empty">Вы не ввели пароль! Повторите ввод</string>
+    <string name="pass_error">Неверный пароль</string>
+
+    <string name="add_photo">Фото из галереи</string>
+    <string name="makeup_photo">Сделать фото</string>
+    <string name="add_file">Добавить файл</string>
+    <string name="add_file_folder">Создать папку</string>
+    <string name="add_note_folder">Добавить папку</string>
+    <string name="add_note">Написать заметку</string>
+
+    <string name="file_choose_yet">Файл уже выбран</string>
+    <string name="your_chooice">Вы выбрали следующие файлы:</string>
+    <string name="file_choosen">Файлы добавлены</string>
+    <string name="folder_is_closed">Папка закрыта для просмотра!</string>
+
+    <string name="ok">ОК</string>
+
+    <string name="encrypt_directory">/ddgostcrypt/files</string>
+
+
+
+</resources>
