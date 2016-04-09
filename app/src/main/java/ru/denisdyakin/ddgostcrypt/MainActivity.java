@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import ru.denisdyakin.ddgostcrypt.activities.MainTabActivity;
 import ru.denisdyakin.ddgostcrypt.crypt.Gost3411;
+import ru.denisdyakin.ddgostcrypt.resources.Res;
 import ru.denisdyakin.ddgostcrypt.utils.*;
 import ru.denisdyakin.ddgostcrypt.utils.Math;
 
@@ -25,7 +26,7 @@ public class MainActivity extends Activity{
 
     private final String STRING_CREATING = "Cr";
     private boolean cr;
-    private String password = null;
+    private String password = "";
     private Gost3411 gostHash;
 
     SQLHelperClass sqlhelper;
@@ -50,6 +51,7 @@ public class MainActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         status_message = (TextView) findViewById(R.id.status_message);
@@ -88,39 +90,38 @@ public class MainActivity extends Activity{
                             break;
                         }
                     case MotionEvent.ACTION_MOVE: // движение
-
                              break;
                     case MotionEvent.ACTION_UP: // отпускание
                         {
                             login_button.setImageResource(R.drawable.login);
                             pass_text_view.setText("");
 
-                            if(password == null){
+                            if(password == ""){
                                 setStatus(getString(R.string.pass_is_empty));
                             }else{
                                 if(cr){
                                     putPassInDB(password);
                                     pushCountOfCreating();
                                     Intent intent = new Intent(getApplicationContext(), MainTabActivity.class);
+                                    intent.putExtra("password", password);
                                     startActivity(intent);
-                                    password = null;
+                                    password = "";
                                     cr = false;
                                 }else{
                                     if(checkPass(password)){
                                         Intent intent = new Intent(getApplicationContext(), MainTabActivity.class);
                                         intent.putExtra("password", password);
                                         startActivity(intent);
-                                        password = null;
+                                        password = "";
                                     }else{
                                         setStatus(getString(R.string.pass_error));
-                                        password = null;
+                                        password = "";
                                     }
                                 }
                             }
                             break;
                         }
                     case MotionEvent.ACTION_CANCEL:
-
                             break;
                 }
                 return true;
@@ -144,7 +145,7 @@ public class MainActivity extends Activity{
                     {
                         erase_button.setImageResource(R.drawable.erase);
                         pass_text_view.setText("");
-                        password = null;
+                        password = "";
                         break;
                     }
                     case MotionEvent.ACTION_CANCEL:
@@ -461,7 +462,8 @@ public class MainActivity extends Activity{
         if(c!=null){
             boolean tag = false;
            if(c.moveToFirst()){
-               tag = hashOfPass(pass).equals(c.getString(c.getColumnIndex(SQLHelperClass.PASSHASH)));
+               String strT = c.getString(c.getColumnIndex(SQLHelperClass.PASSHASH));
+               tag = hashOfPass(pass).equals(strT);
            }
             c.close();
             sqlhelper.close();
@@ -471,10 +473,10 @@ public class MainActivity extends Activity{
     }
 
     private String hashOfPass(String pass){
-        gostHash = new Gost3411(256);
-        pass = pass + "s";
-        int[] hashR = gostHash.getHash(ru.denisdyakin.ddgostcrypt.utils.Math.strToIntArray(pass));
-        return Math.intArrayToStr(gostHash.getHash(hashR));
+        gostHash = new Gost3411(Res.getSizeOfHash());
+        String passStr = pass + "s";
+        int[] hashR = gostHash.getHash(ru.denisdyakin.ddgostcrypt.utils.Math.strToIntArray(passStr));
+        return Math.intArrayToStr(hashR);
     }
 
     private void putPassInDB(String pass){
@@ -486,22 +488,16 @@ public class MainActivity extends Activity{
         sqlhelper.close();
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }

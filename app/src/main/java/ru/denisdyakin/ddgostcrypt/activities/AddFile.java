@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,13 +17,16 @@ import java.util.List;
 
 import ru.denisdyakin.ddgostcrypt.R;
 import ru.denisdyakin.ddgostcrypt.adapters.Add_file_adapter;
+import ru.denisdyakin.ddgostcrypt.intent.ParcelableObject;
+import ru.denisdyakin.ddgostcrypt.resources.Res;
+import ru.denisdyakin.ddgostcrypt.utils.Math;
 
 
 /**
  * Created by Denis on 05.05.2015.
  */
 public class AddFile extends ListActivity{
-    private final String EXTRA_CONST = "files";
+    private final String EXTRA_CONST = Res.getExtraConstAddFiles();
     private final String BACK_CONST = "../";
     private final String DIR_INDICATOR = "/";
 
@@ -35,11 +39,17 @@ public class AddFile extends ListActivity{
     private List<String> pathFile = null;
 
     private String root = "/storage";
+    private String currentPath = root;
     private TextView myPath;
+    private Button add_end;
+    private Button back_up;
 
     private ArrayList<File> fileIntentList;
 
     private StringBuilder toast_status;
+
+    private Intent intent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +60,8 @@ public class AddFile extends ListActivity{
         toast_status = new StringBuilder(getResources().getString(R.string.your_chooice));
 
         this.myPath = (TextView) findViewById(R.id.path2);
+        this.back_up = (Button) findViewById(R.id.back_up);
+        this.add_end = (Button) findViewById(R.id.add_end);
 
         File filesDirectory = new File(root);
         if(! filesDirectory.exists()){
@@ -61,6 +73,24 @@ public class AddFile extends ListActivity{
         }
 
         getDir(this.root);
+
+        this.back_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(path.size() >= 2){
+                        getDir(path.get(1));
+                }else{
+                    onDestroy();
+                }
+            }
+        });
+
+        this.add_end.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onDestroy();
+            }
+        });
     }
 
 
@@ -109,10 +139,9 @@ public class AddFile extends ListActivity{
             }
         }else{
             path.add("/");
-            item.add(getString(R.string.no_data));
         }
 
-        Add_file_adapter adapter = new Add_file_adapter(this, item);
+        Add_file_adapter adapter = new Add_file_adapter(this, item, fileIntentList);
         setListAdapter(adapter);
     }
 
@@ -142,9 +171,12 @@ public class AddFile extends ListActivity{
         }else{
             if(!fileIntentList.contains(file)){
                 fileIntentList.add(file);
-                Toast.makeText(getApplicationContext(),toast_status.append("\n" + file.getName()).toString(), Toast.LENGTH_SHORT).show();
+                getDir(file.getParent());
+                Toast.makeText(getApplicationContext(),getResources().getString(R.string.file_is_choosen) + " " + file.getName(), Toast.LENGTH_SHORT).show();
             }else{
-                Toast.makeText(getApplicationContext(),getResources().getString(R.string.file_choose_yet), Toast.LENGTH_SHORT).show();
+                fileIntentList.remove(file);
+                getDir(file.getParent());
+                Toast.makeText(getApplicationContext(),getResources().getString(R.string.file_is_unchoosen), Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -153,15 +185,19 @@ public class AddFile extends ListActivity{
     protected void onDestroy() {
         super.onDestroy();
         if(!fileIntentList.isEmpty()){
-            Intent intent = new Intent();
-            intent.putExtra(EXTRA_CONST,fileIntentList);
-            setResult(RESULT_OK, intent);
+            Intent _intent = new Intent();
+            _intent.putStringArrayListExtra(EXTRA_CONST, Math.arrayListFileToArrayListString(fileIntentList));
+            setResult(RESULT_OK, _intent);
             Toast.makeText(this,getResources().getString(R.string.file_choosen), Toast.LENGTH_SHORT).show();
             finish();
         }else{
             setResult(RESULT_CANCELED);
+            Toast.makeText(this,getResources().getString(R.string.file_no_choosen), Toast.LENGTH_SHORT).show();
             finish();
         }
 
     }
+
+
+
 }

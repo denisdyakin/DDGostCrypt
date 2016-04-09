@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_material_dark">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/web_site_adress"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#fffffdfd" />
+
+    <EditText
+        android:layout_width="254dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/web_site_adress"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#fffffdfd" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#fffffdfd" />
+
+    <EditText
+        android:layout_width="254dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/login_web"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#fffffdfd" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/password"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#fffffdfd" />
+
+    <EditText
+        android:layout_width="254dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/password_web"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#fffffdfd" />
+
+    <Button
+        android:layout_width="135dp"
+        android:layout_height="wrap_content"
+        android:text="@string/add_web"
+        android:id="@+id/add_web"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>

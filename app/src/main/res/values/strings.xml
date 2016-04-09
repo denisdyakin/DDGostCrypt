@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">DDGostCrypt</string>
+    <string name="app_name">SafeGOST</string>
     <string name="action_settings">Настройки</string>
 
     <string name="main_tab">ГОСТ</string>
@@ -25,14 +25,41 @@
     <string name="add_note_folder">Добавить папку</string>
     <string name="add_note">Написать заметку</string>
 
+    <string name="back_up">Назад</string>
+    <string name="add_end">Добавить</string>
     <string name="file_choose_yet">Файл уже выбран</string>
+    <string name="file_no_choosen">Не выбрано ни одного файла</string>
+    <string name="file_is_unchoosen">Файл убран</string>
+    <string name="file_is_choosen">Файл выбран</string>
     <string name="your_chooice">Вы выбрали следующие файлы:</string>
     <string name="file_choosen">Файлы добавлены</string>
     <string name="folder_is_closed">Папка закрыта для просмотра!</string>
 
     <string name="ok">ОК</string>
 
-    <string name="encrypt_directory">/ddgostcrypt/files</string>
+    <string name="encrypt_directory">/ddgostcrypt/files/</string>
+    <string name="temp_directory">/ddgostcrypt/file/tempf/</string>
+
+    <string name="web_site_adress">Web - сайт</string>
+    <string name="password">Пароль</string>
+    <string name="login">Логин</string>
+    <string name="add_web">Добавить</string>
+    <string name="add_pass_err">Введены не все значения</string>
+    <string name="no_passwords">Нет паролей</string>
+
+    <string name="delete_file">Удалить</string>
+    <string name="rename_file">Переименовать</string>
+    <string name="info_file">Информация</string>
+
+    <string name="settings_crypt_algoritm">Настройки криптографических алгоритмов</string>
+    <string name="mode_of_work">Режим работы</string>
+    <string name="mode_mac">Режим MAC</string>
+    <string name="key_length">Длина ключа</string>
+    <string name="synch">Синхропосылка</string>
+    <string name="settings_interface">Настройки приложения</string>
+    <string name="change_password">Изменить пароль</string>
+    <string name="delete_all_data">Удалить все данные</string>
+    <string name="save_settigns">Сохранить</string>
 
 
 

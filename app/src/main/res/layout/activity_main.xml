@@ -170,7 +170,7 @@
         android:layout_height="wrap_content"
         android:text="@string/app_name"
         android:id="@+id/title"
-        android:textColor="#ff171717"
+        android:textColor="#ff096fa5"
         android:textSize="@dimen/titledimension"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />

@@ -4,6 +4,26 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/back_up"
+            android:text="@string/back_up"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/add_end"
+            android:text="@string/add_end"/>
+
+
+        </LinearLayout>
+
     <TextView
         android:id="@+id/path2"
         android:layout_width="fill_parent"

@@ -1,5 +1,7 @@
 package ru.denisdyakin.ddgostcrypt.threads;
 
+import android.os.Environment;
+
 import java.io.File;
 
 import ru.denisdyakin.ddgostcrypt.crypt.Gost2814789;
@@ -16,7 +18,7 @@ import ru.denisdyakin.ddgostcrypt.utils.Math;
  */
 public class ThreadObject implements Runnable{
     private int shifrMode = 1;
-    private final String directory = "C:\\Users\\Denis\\Desktop";
+    private String directory = Environment.getExternalStorageDirectory() + Res.getDirectoryConst();
     private Gost2814789 gost;
     private File file;
     private Thread thread;
@@ -30,11 +32,20 @@ public class ThreadObject implements Runnable{
         thread.start();
     }
 
+    public ThreadObject(File file, Gost2814789 gost, int mode, String directory){
+        this.gost = gost;
+        this.file = file;
+        this.mode = mode;
+        this.directory = directory;
+        thread = new Thread(this, file.getName());
+        thread.start();
+    }
+
     @Override
     public void run() {
         switch(mode){
             case 1:{
-                encrypt(directory); //в ddcrypt/files
+                encrypt(directory);
                 break;
             }
             case 2:{
@@ -86,7 +97,7 @@ public class ThreadObject implements Runnable{
             }
         }
 
-        new FileOutput(directory + "\\" + file.getName() + "dd", bytes); //переделать имя
+        new FileOutput(directory + file.getName() + "dd", bytes);
 
     }
 
@@ -122,7 +133,9 @@ public class ThreadObject implements Runnable{
                 break;
             }
         }
-        new FileOutput(directory + "\\" + file.getName() + "r", bytes); //переделать имя
+        StringBuilder name = new StringBuilder(file.getName());
+        name.delete(name.length()-3, name.length()-1);
+        new FileOutput(directory + name.toString(), bytes);
 
     }
 

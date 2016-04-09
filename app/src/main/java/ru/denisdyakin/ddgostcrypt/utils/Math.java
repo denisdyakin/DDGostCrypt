@@ -1,9 +1,38 @@
 package ru.denisdyakin.ddgostcrypt.utils;
 
+import java.io.File;
+import java.util.ArrayList;
+
 /**
  * Created by Denis on 05.05.2015.
  */
 public class Math {
+
+    public static ArrayList<String> arrayListFileToArrayListString(ArrayList<File> arrayListFile){
+        ArrayList<String> result = new ArrayList<String>();
+        for(File file : arrayListFile){
+            result.add(file.getPath());
+        }
+        return result;
+    }
+
+    public static ArrayList<File> arrayListStringToArrayListFile(ArrayList<String> arrayListString){
+        ArrayList<File> result = new ArrayList<File>();
+        if(arrayListString.size()>0){
+            for(String strFile : arrayListString){
+                result.add(new File(strFile));
+            }
+        }
+        return result;
+    }
+
+    public static ArrayList<String> arrayListFileToArrayListString2(ArrayList<File> arrayListFile){
+        ArrayList<String> result = new ArrayList<String>();
+        for(File file : arrayListFile){
+            result.add(file.getName());
+        }
+        return result;
+    }
 
     public static int[] byteArrayToIntArray(byte[] bytes){
         int[] result = null;

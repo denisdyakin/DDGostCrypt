@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/menu_group_file" >
+        <item android:title="@string/delete_file"
+            android:id="@+id/delete_file_item"></item>
+        <item android:title="@string/rename_file"
+            android:id="@+id/rename_file_item"></item>
+        <item android:title="@string/info_file"
+            android:id="@+id/info_file_item"></item>
+    </group>
+</menu>

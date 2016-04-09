@@ -4,4 +4,5 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="titledimension">28dp</dimen>
     <dimen name="status_message">18dp</dimen>
+    <dimen name="abc_text_size_title_material">26sp</dimen>
 </resources>

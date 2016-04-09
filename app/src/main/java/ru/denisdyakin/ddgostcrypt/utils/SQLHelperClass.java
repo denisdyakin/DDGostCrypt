@@ -24,7 +24,7 @@ public class SQLHelperClass extends SQLiteOpenHelper {
     public static final String PASSWORD = "Password";
 
     public static final String TABLE_FOURTH = "Notes_table";
-    public static final String Title = "Title";
+    public static final String TITLE = "Title";
     public static final String TEXT = "Text";
 
     public SQLHelperClass(Context context){
@@ -45,6 +45,22 @@ public class SQLHelperClass extends SQLiteOpenHelper {
                         + " );"
         );
 
+        db.execSQL(
+            "CREATE TABLE " + TABLE_THIRD + " ( "
+                + ID + " integer primary key autoincrement, "
+                + WEB_SITE + " text not null, "
+                + LOGIN + " text not null, "
+                + PASSWORD + " text not null "
+                + " );"
+        );
+
+        db.execSQL(
+                "CREATE TABLE " + TABLE_FOURTH + " ( "
+                        + ID + " integer primary key autoincrement, "
+                + TITLE + " text not null, "
+                + TEXT + " text "
+                + " );"
+        );
 
     }
 

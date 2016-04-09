@@ -3,13 +3,17 @@ package ru.denisdyakin.ddgostcrypt.activities;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.Notification;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -23,11 +27,16 @@ import java.util.List;
 
 import ru.denisdyakin.ddgostcrypt.R;
 import ru.denisdyakin.ddgostcrypt.adapters.File_tab_adapter;
+import ru.denisdyakin.ddgostcrypt.intent.ParcelableObject;
+import ru.denisdyakin.ddgostcrypt.resources.Res;
 
 /**
  * Created by Denis on 04.05.2015.
  */
-public class FilesActivity extends ListActivity implements View.OnClickListener {
+public class FilesActivity extends ListActivity implements View.OnClickListener, AdapterView.OnItemLongClickListener {
+    private final String EXTRA_CONST_ADD_FILES = Res.getExtraConstAddFiles();
+    private final String BROADCAST_ACTION_ADD_FILES = Res.getBroadcastActionAddFiles();
+    private final String BROADCAST_ACTION_UPDATE_LIST = Res.getBroadcastActionUpdateList();
 
     private List<String> item = null;
     private List<String> path = null;
@@ -45,18 +54,30 @@ public class FilesActivity extends ListActivity implements View.OnClickListener 
 
     private File f;
 
+    private ArrayList<String> fileList;
+    private BroadcastReceiver broadcastReciever;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_files);
 
-        // decrypt(); async task + threads
+        this.broadcastReciever = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                update();
+            }
+        };
+        // создаем фильтр для BroadcastReceiver
+        IntentFilter intFilter = new IntentFilter(BROADCAST_ACTION_UPDATE_LIST);
+        // регистрируем (включаем) BroadcastReceiver
+        registerReceiver(broadcastReciever, intFilter);
 
         this.myPath = (TextView) findViewById(R.id.path);
         this.root = Environment.getExternalStorageDirectory().getPath();
 
-        File filesDirectory = new File(root + "/ddgostcrypt/files");
+        File filesDirectory = new File(root + Res.getDirectoryTempConst());
         if(! filesDirectory.exists()){
             if(filesDirectory.mkdirs()){
                 this.root = filesDirectory.getPath();
@@ -66,6 +87,7 @@ public class FilesActivity extends ListActivity implements View.OnClickListener 
         }
 
         getDir(this.root);
+
     }
 
     private void getDir(String dirPath){
@@ -125,7 +147,6 @@ public class FilesActivity extends ListActivity implements View.OnClickListener 
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         File file = new File(path.get(position));
-
         if(file.isDirectory()){
             if(file.canRead()){
                 getDir(path.get(position));
@@ -140,7 +161,7 @@ public class FilesActivity extends ListActivity implements View.OnClickListener 
                                     @Override
                                     public void onClick(DialogInterface dialog,
                                                         int which) {
-                                        // TODO Auto-generated method stub
+                                        // TODO Auto-generated method stu   b
                                     }
                                 }).show();
             }
@@ -149,7 +170,7 @@ public class FilesActivity extends ListActivity implements View.OnClickListener 
         }
     }
 
-    public void update(){
+        public void update(){
         getDir(f.getPath());
     }
 
@@ -158,5 +179,31 @@ public class FilesActivity extends ListActivity implements View.OnClickListener 
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(path.size() >= 2){
+            getDir(path.get(1));
+        }else{
+            onDestroy();
+        }
+    }
 
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+        showpopupmenu(view);
+        return true;
+    }
+
+    private void showpopupmenu(View view){
+        PopupMenu menu = new PopupMenu(this, view);
+        menu.inflate(R.menu.popum_menu_file);
+        menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                return false;
+            }
+        });
+    }
 }

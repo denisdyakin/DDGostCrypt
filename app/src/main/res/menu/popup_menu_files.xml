@@ -4,17 +4,20 @@
     <group android:id="@+id/menugroup_file" >
         <item
             android:id="@+id/add_file_menu"
-            android:title="@string/add_file"/>
+            android:title="@string/add_file"
+            android:icon="@drawable/add_file_icon"/>
         <item
             android:id="@+id/add_photo1_menu"
-            android:title="@string/add_photo"/>
+            android:title="@string/add_photo"
+            android:icon="@drawable/add_picture_icon"/>
         <item
             android:id="@+id/add_photo2_menu"
-            android:title="@string/makeup_photo">
-        </item>
+            android:title="@string/makeup_photo"
+            android:icon="@drawable/add_photo_icon"/>
         <item
             android:id="@+id/add_file_folder"
-            android:title="@string/add_file_folder" />
+            android:title="@string/add_file_folder"
+            android:icon="@drawable/add_file_icon"/>
     </group>
 
 </menu>
